@@ -8,9 +8,6 @@ import (
 
 func main() {
 
-	// Initialize Oauth2 Services
-	services.InitializeOAuthGoogle()
-
 	// Routes for the application
 	http.HandleFunc("/", services.HandleMain)
 	http.HandleFunc("/login-gl", services.HandleGoogleLogin)

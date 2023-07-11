@@ -12,7 +12,7 @@ import (
 /*
 HandleMain Function renders the index page when the application index route is called
 */
-func HandleMain(w http.ResponseWriter, r *http.Request) {
+func HandleMain(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	_, err := w.Write([]byte(pages.IndexPage))
@@ -24,15 +24,17 @@ func HandleMain(w http.ResponseWriter, r *http.Request) {
 /*
 HandleLogin Function
 */
-func HandleLogin(w http.ResponseWriter, r *http.Request, oauthConf *oauth2.Config, oauthStateString string) {
-	URL, _ := url.Parse(oauthConf.Endpoint.AuthURL)
+func HandleLogin(w http.ResponseWriter, r *http.Request, oauthConf *oauth2.Config) {
+	URL, err := url.Parse(oauthConf.Endpoint.AuthURL)
+	if err != nil {
+		println("ERROR>>", err.Error())
+	}
 	parameters := url.Values{}
 	parameters.Add("client_id", oauthConf.ClientID)
 	parameters.Add("scope", strings.Join(oauthConf.Scopes, " "))
 	parameters.Add("redirect_uri", oauthConf.RedirectURL)
 	parameters.Add("response_type", "code")
-	parameters.Add("state", oauthStateString)
-	URL.RawQuery = parameters.Encode()
+	URL.RawQuery = parameters.Encode() // add all config to login url
 	mUrl := URL.String()
-	http.Redirect(w, r, mUrl, http.StatusTemporaryRedirect)
+	http.Redirect(w, r, mUrl, http.StatusTemporaryRedirect) // go to login url
 }
