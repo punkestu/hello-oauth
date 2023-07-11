@@ -3,27 +3,26 @@ package services
 import (
 	"context"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
+	"golang.org/x/oauth2/github"
 	"io"
 	"net/http"
-	"net/url"
 )
 
 // config (you get all of it from Google console)
-var oauthConfGl = &oauth2.Config{
+var oauthConfGh = &oauth2.Config{
 	ClientID:     "client_id",
 	ClientSecret: "client_secret",
-	RedirectURL:  "http://localhost:8080/authorized", // a link to redirect when success
-	Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
-	Endpoint:     google.Endpoint,
+	RedirectURL:  "http://localhost:8080/authorizedgh", // a link to redirect when success
+	Scopes:       []string{"user"},
+	Endpoint:     github.Endpoint,
 }
 
-func HandleGoogleLogin(w http.ResponseWriter, r *http.Request) {
-	HandleLogin(w, r, oauthConfGl)
+func HandleGithubLogin(w http.ResponseWriter, r *http.Request) {
+	HandleLogin(w, r, oauthConfGh)
 }
 
-// CallBackFromGoogle take data from login url
-func CallBackFromGoogle(w http.ResponseWriter, r *http.Request) {
+// CallBackFromGithub take data from login url
+func CallBackFromGithub(w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	println("CODE>>", code)
 
@@ -41,9 +40,9 @@ func CallBackFromGoogle(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		token, err := oauthConfGl.Exchange(context.Background(), code) // get token from code
+		token, err := oauthConfGh.Exchange(context.Background(), code) // get token from code
 		if err != nil {
-			println("oauthConfGl.Exchange() failed with "+"ERROR>>", err.Error()+"\n")
+			println("oauthConfGh.Exchange() failed with "+"ERROR>>", err.Error()+"\n")
 			http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 			return
 		}
@@ -55,7 +54,10 @@ func CallBackFromGoogle(w http.ResponseWriter, r *http.Request) {
 			println("TOKEN>> Valid>> NO")
 		}
 
-		resp, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + url.QueryEscape(token.AccessToken)) // get user info
+		client := &http.Client{}
+		req, err := http.NewRequest(http.MethodGet, "https://api.github.com/user", nil)
+		req.Header.Set("Authorization", "Bearer "+token.AccessToken)
+		resp, err := client.Do(req)
 		if err != nil {
 			println("Get: "+"ERROR>>", err.Error()+"\n")
 			http.Redirect(w, r, "/", http.StatusTemporaryRedirect)

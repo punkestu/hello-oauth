@@ -14,6 +14,7 @@ const IndexPage = `
 			Login with the following,
 		</p>
 		<ul>
+			<li><a href="/login-gh">Github</a></li>
 			<li><a href="/login-gl">Google</a></li>
 		</ul>
 	</body>
