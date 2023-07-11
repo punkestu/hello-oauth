@@ -11,8 +11,8 @@ import (
 
 // config (you get all of it from Google console)
 var oauthConfGl = &oauth2.Config{
-	ClientID:     "440615592786-7nd9me401ie2lqtcjb1tndq7m2qetfbq.apps.googleusercontent.com",
-	ClientSecret: "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",
+	ClientID:     "client_id",
+	ClientSecret: "client_secret",
 	RedirectURL:  "http://localhost:8080/authorized", // a link to redirect when success
 	Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
 	Endpoint:     google.Endpoint,
