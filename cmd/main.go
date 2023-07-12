@@ -16,5 +16,8 @@ func main() {
 	http.HandleFunc("/login-gh", services.HandleGithubLogin)
 	http.HandleFunc("/authorizedgh", services.CallBackFromGithub)
 
+	http.HandleFunc("/login-fb", services.HandleFacebookLogin)
+	http.HandleFunc("/authorizedfb", services.CallBackFromFacebook)
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
