@@ -7,7 +7,7 @@ Ada banyak sekali platform yang menyediakan oauth sebagai metode autentikasi ant
 - Google
 - Github
 - Facebook
-- dll (platform lain akan segera diimplementasikan)
+- dll
 
 ## Alur Kerja
 Seperti disebutkan diatas bahwa oauth merupakan sebuah standar sehingga walaupun kita menggunakan berbagai platform sebagai oauth, alur kerja yang digunakan tetap serupa yaitu:
@@ -31,3 +31,8 @@ Seperti disebutkan diatas bahwa oauth merupakan sebuah standar sehingga walaupun
 13. Untuk mengambil token kita dapat mengirimkan request ke platform yang kita gunakan untuk autentikasi sebelumnya dengan data sesuai yang diminta oleh platform tersebut (biasanya CODE, CLIENT_ID, dan CLIENT_SECRET)
 14. Dari request ini kita akan mendapatkan data berupa ACCESS TOKEN dan EXPIRED TIME
 15. Untuk mengambil data user (atau data lainnya yg kita butuhkan) kita hanya perlu mengirimkan request ke API yang disediakan oleh platform yang kita gunakan untuk autentikasi sebelumnya.
+
+## Implementasi
+[x] Google
+[x] Github
+[x] Facebook
