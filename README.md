@@ -33,6 +33,6 @@ Seperti disebutkan diatas bahwa oauth merupakan sebuah standar sehingga walaupun
 15. Untuk mengambil data user (atau data lainnya yg kita butuhkan) kita hanya perlu mengirimkan request ke API yang disediakan oleh platform yang kita gunakan untuk autentikasi sebelumnya.
 
 ## Implementasi
-[x] Google
-[x] Github
-[x] Facebook
+- [x] Google
+- [x] Github
+- [x] Facebook
