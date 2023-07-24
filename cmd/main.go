@@ -16,6 +16,9 @@ func main() {
 	http.HandleFunc("/login-gh", services.HandleGithubLogin)
 	http.HandleFunc("/authorizedgh", services.CallBackFromGithub)
 
+	http.HandleFunc("/login-fb", services.HandleFacebookLogin)
+	http.HandleFunc("/authorizedfb", services.CallBackFromFacebook)
+
 	http.HandleFunc("/login-dc", services.HandleDiscordLogin)
 	http.HandleFunc("/authorizeddc", services.CallBackFromDiscord)
 
