@@ -18,6 +18,7 @@ const IndexPage = `
 			<li><a href="/login-gl">Google</a></li>
 			<li><a href="/login-fb">Facebook</a></li>
 			<li><a href="/login-dc">Discord</a></li>
+			<li><a href="/login-sp">Spotify</a></li>
 		</ul>
 	</body>
 </html>

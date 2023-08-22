@@ -1,9 +1,10 @@
 package main
 
 import (
-	services "github.com/punkestu/hello-oauth/internal/service"
 	"log"
 	"net/http"
+
+	services "github.com/punkestu/hello-oauth/internal/service"
 )
 
 func main() {
@@ -21,6 +22,9 @@ func main() {
 
 	http.HandleFunc("/login-dc", services.HandleDiscordLogin)
 	http.HandleFunc("/authorizeddc", services.CallBackFromDiscord)
+
+	http.HandleFunc("/login-sp", services.HandleSpotifyLogin)
+	http.HandleFunc("/authorizedsp", services.CallBackFromSpotify)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
